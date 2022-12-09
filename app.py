@@ -31,13 +31,19 @@ def title_predict(path) :
     pred = model.predict(np.array([img]))
 
     if pred[0][0] > 0.5 : 
-       return f'Without Mask : {pred[0][0]*100 : 0.2f}%'
+       return f'Without Mask : {pred[0][0]*100 : 0.2f}%', 0
     else : 
-        return f'With Mask : {(1-pred[0][0])*100 : 0.2f}%'
+        return f'With Mask : {(1-pred[0][0])*100 : 0.2f}%', 1
 
 if uploaded_file is not None:
+    if title_predict(uploaded_file)[1] == 1:
+        st.write('## 😷마스크를 착용하셨군요!')
+    else:
+        st.write('## 🙂마스크를 착용하지 않으셨군요!')
+        
     img = plt.imread(uploaded_file)
     fig, ax = plt.subplots(figsize = (5,5))
     ax.imshow(img)
-    ax.set_title(title_predict(uploaded_file))
+    ax.set_title(title_predict(uploaded_file)[0])
     st.pyplot(fig)
+    
