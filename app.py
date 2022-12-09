@@ -35,9 +35,9 @@ def title_predict(path) :
     else : 
         return f'With Mask : {(1-pred[0][0])*100 : 0.2f}%'
 
-
-img = plt.imread(uploaded_file)
-fig, ax = plt.subplots(figsize = (5,5))
-ax.imshow(img)
-ax.set_title(title_predict(uploaded_file))
-st.pyplot(fig)
+if uploaded_file is not None:
+    img = plt.imread(uploaded_file)
+    fig, ax = plt.subplots(figsize = (5,5))
+    ax.imshow(img)
+    ax.set_title(title_predict(uploaded_file))
+    st.pyplot(fig)
