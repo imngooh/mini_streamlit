@@ -6,16 +6,21 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 
+# 마스크 착용 감지 모델
+# 기능 : 이용자로부터 얼굴 이미지를 입력받아, 모델을 통해 마스크를 썼는지 안 썼는지 감지 후 결과 출력
+
+
+# 제목
 st.title('마스크 착용 감지 모델')
 
-
-# requests.get('https://github.com/imngooh/mini_streamlit/raw/main/acc_0.943_vgg19.h5')
-
-
+# 모델 임포트
 model = tf.keras.models.load_model('acc_0.943_vgg19.h5')
 model.summary()
-# tf.keras.utils.plot_model(model)
 
+# 사진 입력받기
+uploaded_file = st.file_uploader("얼굴 사진을 올려주세요!")
+
+# 예측 및 결과 출력
 height = 150
 width = 150
 
@@ -31,8 +36,8 @@ def title_predict(path) :
         return f'With Mask : {(1-pred[0][0])*100 : 0.2f}%'
 
 
-img = plt.imread('with_mask.png')
-fig, ax = plt.subplots()
+img = plt.imread(uploaded_file)
+fig, ax = plt.subplots(figsize = (5,5))
 ax.imshow(img)
-ax.set_title(title_predict('with_mask.png'))
+ax.set_title(title_predict(uploaded_file))
 st.pyplot(fig)
