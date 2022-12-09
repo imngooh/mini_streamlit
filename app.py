@@ -1,9 +1,9 @@
 import streamlit as st
-import requests
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import cv2
 
 
 # 마스크 착용 감지 모델
@@ -18,7 +18,7 @@ model = tf.keras.models.load_model('acc_0.943_vgg19.h5')
 model.summary()
 
 # 사진 입력받기
-uploaded_file = st.file_uploader("얼굴 사진을 올려주세요!")
+uploaded_file = st.file_uploader("얼굴 사진을 올려주세요!", type =  ['png', 'jpg'])
 
 # 예측 및 결과 출력
 height = 150
@@ -41,7 +41,9 @@ if uploaded_file is not None:
     else:
         st.write('## 🙂마스크를 착용하지 않으셨군요!')
         
-    img = plt.imread(uploaded_file)
+    # img = cv2.cvtColor(cv2.imread(uploaded_file),cv2.COLOR_BGR2RGB)
+    # img = cv2.imread(uploaded_file)
+    img = tf.keras.preprocessing.image.load_img(uploaded_file)
     fig, ax = plt.subplots(figsize = (5,5))
     ax.imshow(img)
     ax.set_title(title_predict(uploaded_file)[0])
