@@ -32,8 +32,8 @@ model = tf.keras.models.load_model('ResNet152V2_0.9659.h5')
 uploaded_file = st.file_uploader("얼굴 사진을 올려주세요!", type =  ['png', 'jpg'])
 
 # 예측 및 결과 출력
-height = 128
-width = 128
+height = 224
+width = 224
 
 def title_predict(path) :
     img = tf.keras.preprocessing.image.load_img(path, target_size=(height,width))
