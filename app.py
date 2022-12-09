@@ -46,5 +46,6 @@ if uploaded_file is not None:
     fig, ax = plt.subplots(figsize = (5,5))
     ax.imshow(img)
     ax.set_title(title_predict(uploaded_file)[0])
+    plt.axis('off')
     st.pyplot(fig)
     
